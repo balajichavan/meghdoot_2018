@@ -1,0 +1,69 @@
+28/11/2018 : Ver 1.0 - Initial Setup and Basic Sitemap guide with a single switch.
+
+
+Installation and Setup:
+========================
+
+Launch the browser => http://localhost:8080 => Paper UI => Addons => Bindings
+Bindings to be installed in openHAB:
+1.HTTP Binding
+2.Amazon Echo Control Binding
+
+http://localhost:8080 => Paper UI => Addons => Misc
+Install openHAB Cloud connector.
+
+TBD
+===
+Instructions for cloud connector addon will be added later.
+
+
+Item definition for STB:
+==========================
+A switch is defined for set top box power key.
+IP address 10.78.150.71 is running the Go-lang based binary for cmd2000 commands to the box.
+This ip needs to be replaced with the IP of the PC where the G10-DVR box is connected through the dev hub.
+
+The binary "host-remote" needs to be run on 8081 port.
+host_remote binary needs to be gunzipped.
+
+Following file => "<openHab-homedir>/conf/items/default.items" has items and groups defined for a house.
+
+	Group H "House" <House> ["House"]
+	Group Living "Living Room" <Living> (H) ["LivingRoom"]
+	Group Bed "Bed Room" <Bed> (H) ["BedRoom"]
+
+	//Switch Test "Test Switch" (Bed)
+
+	Switch SetTopBox_Power "Cable Box Power" (Bed) ["Switchable"] { http=">[ON:PUT:http://10.78.150.71:8081/remote?stbip=10.10.1.27&remotekey=pwr] >[OFF:PUT:http://10.78.150.71:8081/remote?stbip=10.10.1.27&remotekey=g]" }
+
+
+
+
+SiteMap:
+========
+
+	cat "<openHab-homedir>/conf/sitemaps/default.sitemap "
+	sitemap default label="My Home"
+	{
+		Frame
+		{
+			Group item=H label="House"
+		}
+	}
+
+
+
+With above configuration, we can see the sitemap in the following URL:
+http://localhost:8080/basicui/app
+
+
+
+
+
+
+
+
+
+
+
+
