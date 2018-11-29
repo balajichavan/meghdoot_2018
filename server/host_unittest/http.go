@@ -100,5 +100,7 @@ func main() {
 	http.HandleFunc("/switch", switchHandler)
 	http.HandleFunc("/stbinfo", stbinfohandler)
 	http.HandleFunc("/currentViewing", currentViewinghandler)
+	http.HandleFunc("/guideNavigation", stbinfohandler)
+	http.HandleFunc("/askalexa", stbinfohandler)
     log.Fatal(http.ListenAndServe(":8082", nil))
 }
