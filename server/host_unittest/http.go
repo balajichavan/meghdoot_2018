@@ -62,11 +62,15 @@ func remotehandler(w http.ResponseWriter, r *http.Request) {
 
     fmt.Printf("\nparsed key :  %s",k)
     ip := r.URL.Query().Get("stbip")
-    fmt.Printf("\nstbip :  %s , key : %s ",ip, k)
+    fmt.Printf("\nstbip :  %s , key : %s, keylen = %d ",ip, k, len(k))
+	
+
+	
     cmd := fmt.Sprintf("cmd2000 %s \"osdiag %s\"",ip, k)
         //Handle key including + symbol, its dropped by HTTP URL, append it again
-        if ( (k == "c") || (k == "v") || (k == "p") || ( k == "d") ) {
-                cmd = fmt.Sprintf("./cmd2000 %s \"osdiag %s+\"",ip, k)
+        if ( (k == "c ") || (k == "v ") || (k == "p ") || ( k == "d ") ) {
+                cmd = fmt.Sprintf("cmd2000 %s \"osdiag %s+\" ",ip, k[0:len(k)-1])
+				fmt.Printf("Updated command for plus/minus is %s", cmd)
         }
         fmt.Printf("\nCommand is  %s : ",cmd)
     w.Header().Set("Content-Type", "application/json; charset=UTF-8")
