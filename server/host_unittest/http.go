@@ -24,6 +24,9 @@ var switchState string = "ON"
 var remoteState string = "ON"
 var currentViewChannel string =""
 var currentViewProgram string = ""
+var guideChannel string=""
+var guideProgram string=""
+var guideTitle string=""
 var switchBool int = 1
 
 func switchHandler(w http.ResponseWriter, r *http.Request) {
@@ -127,12 +130,40 @@ func currentViewinghandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func guideHandler(w http.ResponseWriter, r *http.Request) {
+	start := time.Now()
+	if ( r.Method == "GET" ) {
+	fmt.Fprintf(w, "{ \"guideChannel\" : \"%s\", \"guideTitle\" : \"%s\", \"guideProgram\" : \"%s\" }" , guideChannel, guideTitle, guideProgram )
+	
+		log.Printf(
+            "%s\t%s\t%s %s%s%s",
+            r.Method,
+            r.RequestURI,
+            time.Since(start),guideChannel, guideTitle, guideProgram,
+		)
+		}
+		
+		if( r.Method == "POST" ) {
+		guideChannel = r.URL.Query().Get("channelNumber")
+		guideTitle = r.URL.Query().Get("title")
+		guideProgram = r.URL.Query().Get("programDesc")
+		fmt.Fprintf(w, "{ \"status\" : \"%s\" }", "OK" )
+		log.Printf(
+            "%s\t%s\t%s\t%s",
+            r.Method,
+            r.RequestURI,
+            time.Since(start),
+			"Chan="+guideChannel+"PRogramTitle="+guideTitle+"PRogramDesc="+guideProgram,
+		)
+	}
+}
+
 func main() {
     http.HandleFunc("/remote", remotehandler)
 	http.HandleFunc("/switch", switchHandler)
 	http.HandleFunc("/stbinfo", stbinfohandler)
 	http.HandleFunc("/currentViewing", currentViewinghandler)
-	http.HandleFunc("/guideNavigation", stbinfohandler)
+	http.HandleFunc("/guideNavigation", guideHandler)
 	http.HandleFunc("/askalexa", stbinfohandler)
     log.Fatal(http.ListenAndServe(":8082", nil))
 }
