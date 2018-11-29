@@ -1,4 +1,37 @@
+Wifif PWD: 6543217890
+
+
 28/11/2018 : Ver 1.0 - Initial Setup and Basic Sitemap guide with a single switch.
+29/11/2018 : Ver 1.1 - Added project plan and ownership
+
+Project Plan : 
+
+STB Access/Control REST Interface Implementation
+	REQ1: STB discovery and info - HTTP GET /stbinfo - Gnanesh
+	REQ2: Current viewing details - HTTP GET /currentViewing - Gnanesh - title/channel/longdescription/isRecording
+	REQ3: Guide navigation selected program details - HTTP POST /guideNavigation?title=<programTitle> - Lalit
+	REQ4: More info in PDP  - HTTP POST /askAlexa?channelShortDesc=<HBO>&title=<Breaking Bad>  - Lalit
+	
+Basic User Interface design : Adarsh
+	Home -> Living -> STB Info(frame) -> <Current watching Program details> <Remote Interface>
+	Rules for following use-cases.
+		User enters home - WIFI connection to Mobile, then.... <MVP>
+		Use exits home - <MVP>
+		Channel Change behavior - Alexa briefs about current program <MVP>
+		Navigation to future programs, Alexa reads out the program details <MVP>
+		More info on Alexa - Alexa to readout the program details from cloud. 
+	
+OpenHab Configuration override/docker compose: Balaji
+	Github branching/tagging strategy - Balaji
+	Switch/String openhab configuration for various stb info details - Balaji
+	Alexa Binding configuration  and validate askAlexa requirements for REQ 4.
+	Alexa TTS command flow an
+	
+	
+
+
+
+
 
 
 Installation and Setup:
