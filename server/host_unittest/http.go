@@ -70,20 +70,19 @@ func remotehandler(w http.ResponseWriter, r *http.Request) {
 
 	
     cmd := fmt.Sprintf("cmd2000 %s \"osdiag %s\"",ip, k)
-        //Handle key including + symbol, its dropped by HTTP URL, append it again
-        if ( (k == "c ") || (k == "v ") || (k == "p ") || ( k == "d ") ) {
-                cmd = fmt.Sprintf("cmd2000 %s \"osdiag %s+\" ",ip, k[0:len(k)-1])
-				fmt.Printf("Updated command for plus/minus is %s", cmd)
-        }
-        fmt.Printf("\nCommand is  %s : ",cmd)
+    //Handle key including + symbol, its dropped by HTTP URL, append it again
+    if ( (k == "c ") || (k == "v ") || (k == "p ") || ( k == "d ") ) {
+        cmd = fmt.Sprintf("cmd2000 %s \"osdiag %s+\" ",ip, k[0:len(k)-1])
+		fmt.Printf("Updated command for plus/minus is %s", cmd)
+    }
+    fmt.Printf("\nCommand is  %s : ",cmd)
     w.Header().Set("Content-Type", "application/json; charset=UTF-8")
     w.WriteHeader(http.StatusOK)
     if err := json.NewEncoder(w).Encode(jsonErr{Code : http.StatusOK , Text : "Success"} ); err != nil {
                panic(err)
         }
 
-    //out, err :=  exec.Command("sh","-c",cmd ).Output()
-	out, err :=  exec.Command(cmd ).Output()
+    out, err :=  exec.Command("sh","-c",cmd ).Output()
     if(err != nil){
                 fmt.Printf("%s",err)
         }else{
