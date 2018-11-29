@@ -20,10 +20,11 @@ func switchHandler(w http.ResponseWriter, r *http.Request) {
 		
 	}	
 	if ( r.Method == "POST" ) {
-		if  switchState == "ON" {
-			switchState = "OFF"
+		newState := r.URL.Query().Get("state")
+		if ( ( newState == "ON" ) || ( newState == "OFF" ) ){
+			switchState = newState;
 		} else {
-			switchState = "ON"
+			log.Printf("Invalid state passed for HTTP PORT on %s",r.RequestURI)
 		}
 		fmt.Fprintf(w, "{ \"status\" : \"%s\" }", switchState )
 	}
@@ -81,21 +82,23 @@ func stbinfohandler(w http.ResponseWriter, r *http.Request) {
 
 func currentViewinghandler(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
+	if ( r.Method == "GET" ) {
+	fmt.Fprintf(w, "{ \"channel\" : \"AMC\", \"progTitle\" : \"Breaking Bad\" }" )
 	
-    fmt.Fprintf(w, "{ \"status\" : \"%s\" }", "OK" )
 	log.Printf(
-            "%s\t%s\t%s\t%s",
+            "%s\t%s\t%s",
             r.Method,
             r.RequestURI,
             time.Since(start),
-			switchState,
+			
         )
+	}
 }
 
 func main() {
     http.HandleFunc("/remote", remotehandler)
 	http.HandleFunc("/switch", switchHandler)
 	http.HandleFunc("/stbinfo", stbinfohandler)
-	http.HandleFunc("/currentViewing ", currentViewinghandler)
+	http.HandleFunc("/currentViewing", currentViewinghandler)
     log.Fatal(http.ListenAndServe(":8082", nil))
 }
