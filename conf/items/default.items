@@ -1,0 +1,26 @@
+Group STB "STB"  <STB> ["MySTB"] 
+
+String STBNowPlayingChannel "Channel: [%s]" (STB) // {http="<[http://192.168.1.14:8082/currentViewing:30000:JS(getChannel.js)]"}
+String STBNowPlayingProgram "Program: [%s]" (STB)// {http="<[http://192.168.1.14:8082/currentViewing:30000:JS(getTitle.js)]"}
+Switch STBRemoteControl "STB Power [%s]"    (STB) ["Switchable"]     { http="<[http://192.168.1.14:8082/switch:30000:JS(getValue.js)]  >[ON:POST:http://192.168.1.14:8082/remote?stbip=localhost&remotekey=pwr] >[OFF:POST:http://192.168.1.14:8082/remote?stbip=localhost&remotekey=pwr]" }
+String STBMac "STB Mac: [%s]" {http="<[http://192.168.1.14:8082/stbinfo:30000:JS(getInfo.js)]"}
+
+Switch STBChannelChange "Channel" { http="<[http://192.168.1.14:8082/switch:30000:JS(getValue.js)]  >[ON:POST:http://192.168.1.14:8082/switch?state=ON] >[OFF:POST:http://192.168.1.14:8082/switch?state=OFF]" }
+
+Switch STBGuide "STB Guide [%s]"   ["Switchable"]     { http="<[http://192.168.1.14:8082/switch:30000:JS(getValue.js)]  >[ON:POST:http://192.168.1.14:8082/switch?state=ON] >[OFF:POST:http://192.168.1.14:8082/switch?state=OFF]" }
+
+String STBGuideNowPlayingChannel "Channel: [%s]" (STB) {http="<[http://192.168.1.14:8082/guideNavigation:15000:JS(getGuideChannel.js)]"}
+String STBGuideNowPlayingProgramName "Program Title: [%s]" (STB) {http="<[http://192.168.1.14:8082/guideNavigation:15000:JS(getGuideTitle.js)]"}
+String STBGuideNowPlayingProgramDescription "Program Desc: [%s]" (STB) {http="<[http://192.168.1.14:8082/guideNavigation:15000:JS(getGuideProg.js)]"}
+
+
+Switch STBRemoteControl_Light "Light Control through Alexa [%s]"   ["Switchable"]  { http="<[http://192.168.1.14:8082/switch:30000:JS(getValue.js)]  >[ON:POST:http://192.168.1.3:8082/switch?state=ON] >[OFF:POST:http://192.168.1.3:8082/switch?state=OFF]" }
+
+Switch STBRemoteControl_ChanUp "Channel [%s]"              ["Switchable"]       { http="<[http://192.168.1.14:8082/switch:30000:JS(getValue.js)]  >[ON:POST:http://192.168.1.14:8082/remote?stbip=localhost&remotekey=c+] >[OFF:POST:http://192.168.1.14:8082/remote?stbip=localhost&remotekey=c-]" }
+
+Switch STBRemoteControl_Page "Page [%s]"                ["Switchable"]       { http="<[http://192.168.1.14:8082/switch:30000:JS(getValue.js)]  >[ON:POST:http://192.168.1.14:8082/remote?stbip=localhost&remotekey=p+] >[OFF:POST:http://192.168.1.14:8082/remote?stbip=localhost&remotekey=p-]" }
+
+Switch STBRemoteControl_Guide "Guide up [%s]"                ["Switchable"]       { http="<[http://192.168.1.14:8082/switch:30000:JS(getValue.js)]  >[ON:POST:http://192.168.1.14:8082/remote?stbip=localhost&remotekey=g] >[OFF:POST:http://192.168.1.14:8082/remote?stbip=localhost&remotekey=g]" }
+
+Switch STBRemoteControl_Volume "Cable Volume [%s]"      ["Switchable"]       { http="<[http://192.168.1.14:8082/switch:30000:JS(getValue.js)]  >[ON:POST:http://192.168.1.14:8082/remote?stbip=localhost&remotekey=v+] >[OFF:POST:http://192.168.1.14:8082/remote?stbip=localhost&remotekey=v-]" }
+

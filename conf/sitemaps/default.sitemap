@@ -1,0 +1,40 @@
+sitemap  default label="MyHome" 
+{ 
+		Frame label="STB Info"
+		{
+			Text item=STBMac
+		}
+        Frame label="Currently Viewing"
+        { 
+             //   Group item=STB label="My STB" 
+				
+				Text item=STBNowPlayingChannel 
+				Text item=STBNowPlayingProgram
+				
+        } 
+		
+		Frame label="Remote"
+		{
+			Switch item=STBRemoteControl
+			Slider item=Volume label="Volume"
+			Switch item=STBChannelChange
+			Switch item=STBGuide	
+			Switch item=STBRemoteControl_Light
+			Switch item=STBRemoteControl_ChanUp
+			Switch item=STBRemoteControl_Page
+			Switch item=STBRemoteControl_Guide
+			Switch item=STBRemoteControl_Volume
+
+			
+		}
+	 
+	 
+		Frame label="Guide Information"
+		{
+			Text item=STBGuideNowPlayingChannel
+			Text item=STBGuideNowPlayingProgramName
+			Text item=STBGuideNowPlayingProgramDescription
+		}
+		
+		
+}
