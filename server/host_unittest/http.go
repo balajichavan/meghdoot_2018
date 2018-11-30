@@ -28,6 +28,12 @@ var guideChannel string=""
 var guideProgram string=""
 var guideTitle string=""
 var switchBool int = 1
+var duration string = ""
+var ProgStartTime string = ""
+var name string = ""
+var mac string = ""
+var ip string = ""
+var state string = ""   
 
 func switchHandler(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
@@ -91,22 +97,52 @@ func remotehandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 func stbinfohandler(w http.ResponseWriter, r *http.Request) {
-	start := time.Now()
+	//start := time.Now()
 	
-    fmt.Fprintf(w, "{ \"status\" : \"%s\" }", "OK" )
-	log.Printf(
-            "%s\t%s\t%s\t%s",
+   // fmt.Fprintf(w, "{ \"status\" : \"%s\" }", "OK" )
+	//log.Printf(
+    //        "%s\t%s\t%s\t%s",
+    //        r.Method,
+     //       r.RequestURI,
+     //       time.Since(start),
+	//		switchState,
+    //    )
+	if ( r.Method == "GET" ) {
+		fmt.Fprintf(w, "{ \"DeviceType\" : \"%s\", \"DeviceMac\" : \"%s\",\"IpAddress\" : \"%s\" , \"DeviceState\" : \"%s\" }" , name, mac,ip,state )
+	
+		log.Printf(
+            "%s\t%s\t%s\t%s\t%s",
             r.Method,
             r.RequestURI,
-            time.Since(start),
-			switchState,
-        )
+            name,
+			mac,
+			ip,
+			state,
+		)
+	}
+	if( r.Method == "POST" ) {
+		name = r.URL.Query().Get("DeviceType")
+		mac = r.URL.Query().Get("DeviceMac")
+		ip = r.URL.Query().Get("IpAddress")
+		state = r.URL.Query().Get("DeviceState")
+		fmt.Fprintf(w, "{ \"status\" : \"%s\" }", "OK" )
+		//fmt.Fprintf(w, "{ \"status\" : \"%s\" }", "OK" )
+		log.Printf(
+            "%s\t%s\t%s\t%s\t%s\t%s",
+            r.Method,
+            r.RequestURI,
+            name,
+			mac,
+			ip,
+			state,
+		)
+	}
 }
 
 func currentViewinghandler(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 	if ( r.Method == "GET" ) {
-		fmt.Fprintf(w, "{ \"channel\" : \"%s\", \"progTitle\" : \"%s\" }" , currentViewChannel, currentViewProgram )
+		fmt.Fprintf(w, "{ \"channel\" : \"%s\", \"progTitle\" : \"%s\" , \"programDuration\" : \"%s\" , \"ProgStartTime\" : \"%s\" }" , currentViewChannel, currentViewProgram,duration, ProgStartTime)
 	
 		log.Printf(
             "%s\t%s\t%s",
@@ -118,13 +154,18 @@ func currentViewinghandler(w http.ResponseWriter, r *http.Request) {
 	if( r.Method == "POST" ) {
 		currentViewChannel = r.URL.Query().Get("channel")
 		currentViewProgram = r.URL.Query().Get("programTitle")
+	    duration = r.URL.Query().Get("programDuration")
+		ProgStartTime = r.URL.Query().Get("ProgStartTime")
 		fmt.Fprintf(w, "{ \"status\" : \"%s\" }", "OK" )
 		log.Printf(
-            "%s\t%s\t%s\t%s",
+            "%s\t%s\t%s\t%s\t%s\t%s\t%s",
             r.Method,
             r.RequestURI,
             time.Since(start),
-			"Chan="+currentViewChannel+"PRogramTitle="+currentViewProgram,
+			currentViewChannel,
+			currentViewProgram,
+			duration,
+			ProgStartTime,
 		)
 	}
 }
