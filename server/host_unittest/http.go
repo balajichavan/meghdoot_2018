@@ -111,7 +111,7 @@ func stbinfohandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "{ \"DeviceType\" : \"%s\", \"DeviceMac\" : \"%s\",\"IpAddress\" : \"%s\" , \"DeviceState\" : \"%s\" }" , name, mac,ip,state )
 	
 		log.Printf(
-            "%s\t%s\t%s\t%s\t%s",
+            "%s\t%s\t%s\t%s\t%s\t%s",
             r.Method,
             r.RequestURI,
             name,
