@@ -9,17 +9,17 @@ Wifif PWD: 6543217890
 Demo Use cases:
 	1. STB as smart device using HTTP Bindings on openhab and REST interfaces on STB side.
 	2. Demonstrate various user interfaces 
-		- Display Currently viewed program info on Mobile app/Web site.
-		- Control STB from same
-	3. Use Alexa/Google Assistant to control the STB
-	4. Setup routines for Alexa for following use-case
+		- Display Currently viewed program info on Mobile app/Web site. - Partially completed.
+		- Control STB from same - Completed
+	3. Use Alexa/Google Assistant to control the STB - Completed
+	4. Setup routines for Alexa for following use-case - Completed.
 		- User enters home, Turn lights and Set top box on.
-		- User exits home, Turn off all the devices.
-	5. Twitter integration - 
+		- User exits home, Turn off all the devices. 
+	5. Twitter integration -  Partial 
 		- User enters home, tweets the same.
 		- User exits home, tweets the same.
-	6. Use Alexa as Speech to Text converter to read out program selection on guide, Integration on stb side.
-	7. Use Alexa to readout more information on program in guide. 
+	6. Use Alexa as Speech to Text conaverter to read out program selection on guide, Integration on stb side.
+	7. Use Alexa to readout more information on program in guide.  - NOT MVP.
 	
 Enhancements and Future Scope:
 	1. End to End integration of entire remote functionality
